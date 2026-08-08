@@ -1,4 +1,3 @@
-```js
 /**
  * Serialize Message
  * Created By Freezer
@@ -431,4 +430,4 @@ async function serializeMessage(sock, msg) {
 }
 
 module.exports = serializeMessage;
-```
+
