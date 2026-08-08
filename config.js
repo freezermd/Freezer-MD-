@@ -1,4 +1,3 @@
-```js
 require('dotenv').config();
 
 global.sessionid = process.env.SESSION_ID || '';
@@ -29,4 +28,4 @@ global.presenceMode = 'none'; // 'none' | 'typing' | 'recording' | 'online'
 global.updateZipUrl = 'https://github.com/freezermd/Freezer-MD-/archive/refs/heads/main.zip';
 
 global.antidelete = 'false';  // 'false' | 'inchat' | 'indm'
-```
+
