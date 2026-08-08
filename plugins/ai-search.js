@@ -1,4 +1,3 @@
-```js
 const axios = require('axios');
 
 module.exports = {
@@ -96,4 +95,4 @@ STRICT RULES (MANDATORY):
         }
     }
 };
-```
+
