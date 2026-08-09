@@ -13,12 +13,7 @@ const { handleChatbotResponse } = require('./lib/chatbot');
 const { handleLinkDetection } = require('./lib/antilink');
 const JimpImport = require('jimp');
 
-const Jimp =
-  JimpImport.read
-    ? JimpImport
-    : JimpImport.Jimp
-    ? JimpImport.Jimp
-    : JimpImport.default;
+const Jimp = JimpImport.read ? JimpImport : JimpImport.Jimp ? JimpImport.Jimp : JimpImport.default;
 
 global.generateWAMessageContent = generateWAMessageContent;
 global.generateWAMessageFromContent = generateWAMessageFromContent;
@@ -143,13 +138,13 @@ function startBot() {
 
                     try {
                         await sock.sendMessage(botNumber, {
-                            text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n📝 Prefix: ${global.BOT_PREFIX}\n👑 Owners: ${global.owners.length}\n\n✅ JOIN FREEZER MD CHANNEL`,
+                            text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n🟣 Prefix: ${global.BOT_PREFIX}\n👑 Owners: ${global.owners.length}\n\n✅ WELCOME`,
                             contextInfo: {
                                 forwardingScore: 1,
                                 isForwarded: true,
                                 forwardedNewsletterMessageInfo: {
                                     newsletterJid: '120363426778975572@newsletter',
-                                    newsletterName: '🟣FREEZER🟣',
+                                    newsletterName: '❣️freezer❤️',
                                     serverMessageId: -1
                                 }
                             }
@@ -367,6 +362,10 @@ function startBot() {
                 }
             });
 
+            sock.ev.on('messages.reaction', async (reactions) => {
+                console.log('💖 Reaction update:', reactions);
+            });
+
         } catch (error) {
             console.error('❌ Bot startup error:', error);
             isConnecting = false;
@@ -394,4 +393,107 @@ const server = http.createServer(async (req, res) => {
     const url = req.url;
 
     if (url === '/' || url === '/qr') {
-        res.writeHead(200, { 'Content
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(`<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>WhatsApp Bot</title></head>
+<body style="font-family:sans-serif;text-align:center;padding:40px;">
+<h1>WhatsApp Bot Status</h1>
+<div id="status">Loading...</div>
+<script>
+async function poll(){
+  const r = await fetch('/api/status');
+  const d = await r.json();
+  document.getElementById('status').innerText = 'Status: ' + d.status;
+}
+setInterval(poll, 2000);
+poll();
+</script>
+</body></html>`);
+    }
+
+    else if (url === '/api/status' && req.method === 'GET') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ status: botStatus, connecting: isConnecting }));
+    }
+
+    else if (url === '/pair' && req.method === 'GET') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(`<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial; padding: 20px; text-align: center; }
+        form { margin: 20px; padding: 20px; background: #f0f0f0; display: inline-block; }
+        input, button { padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔗 Pair WhatsApp</h1>
+    <form method="POST">
+        Phone: <input type="text" name="phone" placeholder="911234567890" required>
+        <button type="submit">Get Pairing Code</button>
+    </form>
+</body>
+</html>`);
+    }
+
+    else if (url === '/pair' && req.method === 'POST') {
+        try {
+            const body = await collectRequestBody(req);
+            const params = new URLSearchParams(body);
+            const phone = (params.get('phone') || '').replace(/[^0-9]/g, '');
+
+            if (!phone) {
+                res.writeHead(400, { 'Content-Type': 'text/plain' });
+                return res.end('Phone number is required.');
+            }
+
+            if (!sock) {
+                res.writeHead(503, { 'Content-Type': 'text/plain' });
+                return res.end('Bot socket is not ready yet, try again shortly.');
+            }
+
+            const code = await sock.requestPairingCode(phone);
+            pairingCodes.set(phone, code);
+
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(`<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial; padding: 20px; text-align: center; }
+        .code { font-size: 32px; letter-spacing: 4px; background: #f0f0f0; padding: 20px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1>🔗 Your Pairing Code</h1>
+    <div class="code">${code}</div>
+    <p>Enter this code in WhatsApp → Linked Devices → Link with phone number.</p>
+</body>
+</html>`);
+        } catch (err) {
+            console.error('❌ Pairing error:', err.message);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Failed to generate pairing code: ' + err.message);
+        }
+    }
+
+    else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not found');
+    }
+});
+
+server.listen(PORT, () => {
+    console.log(`🌐 Server listening on port ${PORT}`);
+});
+
+loadPrefix();
+
+process.on('uncaughtException', (err) => {
+    console.error('❌ Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason) => {
+    console.error('❌ Unhandled Rejection:', reason);
+});
