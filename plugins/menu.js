@@ -14,14 +14,14 @@ module.exports = {
             day: 'numeric', 
             month: 'short', 
             year: 'numeric',
-            timeZone: 'Africa/Accra'
+            timeZone: 'Africa/Nairobi'   // changed to Nairobi
         });
         
         const time = now.toLocaleTimeString('en-US', { 
             hour: '2-digit', 
             minute: '2-digit',
             hour12: true,
-            timeZone: 'Africa/Accra'
+            timeZone: 'Africa/Nairobi'   // changed to Nairobi
         });
         
         const botOwner = global.ownerName || 'FREEZER MD';
@@ -46,11 +46,13 @@ module.exports = {
         const seen = new Set();
         let totalPlugins = 0;
 
-        if (global.plugins instanceof Map) {
-            const uniquePlugins = new Set(global.plugins.values());
+        // Safely handle global.plugins
+        const plugins = global.plugins instanceof Map ? global.plugins : new Map();
+        if (plugins.size > 0) {
+            const uniquePlugins = new Set(plugins.values());
             totalPlugins = uniquePlugins.size;
 
-            for (const plugin of global.plugins.values()) {
+            for (const plugin of plugins.values()) {
                 if (!plugin || !plugin.name) continue;
                 if (plugin.hidden) continue;
                 if (seen.has(plugin.name)) continue;
@@ -90,6 +92,7 @@ module.exports = {
 ${commandSections}
 
 > ❄️ *Powered by Freezer MD*
+> 📢 *Channel:* https://whatsapp.com/channel/0029Vb87tM1D8SE7qCVjbq3U
 `.trim();
 
         const contextInfo = {
