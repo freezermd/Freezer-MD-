@@ -4,37 +4,34 @@
   "description": "Freezer WhatsApp Bot",
   "main": "index.js",
   "type": "commonjs",
-
   "scripts": {
     "start": "node index.js",
     "stop": "pm2 stop Freezer-MD",
     "restart": "pm2 restart Freezer-MD",
     "bot": "node index.js"
   },
-
   "author": "Freezer",
   "license": "MIT",
   "private": true,
-
   "keywords": [
     "whatsapp-bot",
-    "baileys",
     "freezer",
-    "freezer-md"
+    "freezer-md",
+    "baileys"
   ],
-
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "^7.0.0-rc13",
     "acrcloud": "^1.4.0",
-    "axios": "^1.6.8",
     "adm-zip": "^0.5.16",
+    "axios": "^1.6.8",
     "body-parser": "*",
     "chalk": "^4.1.2",
     "dotenv": "^17.2.3",
     "express": "*",
     "file-type": "^22.0.1",
+    "form-data": "^4.0.1",
     "gifted-btns": "^1.0.0",
     "jimp": "^1.6.1",
     "sharp": "^0.35.2",
@@ -49,7 +46,6 @@
     "wa-sticker-formatter": "^4.4.4",
     "yt-search": "^2.10.4"
   },
-
   "devDependencies": {
     "pm2": "^5.3.0"
   }
