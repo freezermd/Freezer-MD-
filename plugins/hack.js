@@ -1,143 +1,184 @@
 module.exports = {
     name: 'hack',
     category: 'Fun',
-    aliases: ['prankhack', 'prank'],
-    description: 'Fake cinematic hacking prank',
+    aliases: ['fakehack', 'prankhack'],
+    description: 'Simulate a fake hacking sequence for fun',
+    usage: '.hack <target>',
 
     async execute(sock, m, args) {
+        const chatId = m.from || m.key.remoteJid;
         const target =
-            m.mentionedJid?.[0] ||
-            m.quoted?.sender ||
-            m.sender;
+            args?.join(' ') ||
+            (m.mentionedJid?.[0]
+                ? `@${m.mentionedJid[0].split('@')[0]}`
+                : 'target');
 
-        const tag = `@${target.split('@')[0]}`;
+        try {
+            await send(sock, chatId, m,
+                '💻 *FREEZER-MD CYBER TERMINAL*\n\n' +
+                `🎯 Target: *${target}*\n\n` +
+                '⚡ Initializing prank sequence...'
+            );
 
-        const sleep = ms =>
-            new Promise(resolve => setTimeout(resolve, ms));
+            await delay(1200);
 
-        const fakeIP = () =>
-            `${Math.floor(Math.random() * 223) + 1}.` +
-            `${Math.floor(Math.random() * 255)}.` +
-            `${Math.floor(Math.random() * 255)}.` +
-            `${Math.floor(Math.random() * 254) + 1}`;
+            await send(sock, chatId, m,
+                '🔌 *Establishing secure connection...*\n\n' +
+                '🌐 Connecting to target server...'
+            );
 
-        const progress = () => {
-            const bars = [
-                '▱▱▱▱▱▱▱▱▱▱ 0%',
-                '▰▱▱▱▱▱▱▱▱▱ 10%',
-                '▰▰▱▱▱▱▱▱▱▱ 20%',
-                '▰▰▰▱▱▱▱▱▱▱ 30%',
-                '▰▰▰▰▱▱▱▱▱▱ 40%',
-                '▰▰▰▰▰▱▱▱▱▱ 50%',
-                '▰▰▰▰▰▰▱▱▱▱ 60%',
-                '▰▰▰▰▰▰▰▱▱▱ 70%',
-                '▰▰▰▰▰▰▰▰▱▱ 80%',
-                '▰▰▰▰▰▰▰▰▰▱ 90%',
-                '▰▰▰▰▰▰▰▰▰▰ 100%'
-            ];
+            await delay(1200);
 
-            return bars[Math.floor(Math.random() * bars.length)];
-        };
+            await send(sock, chatId, m,
+                '🛡️ *Bypassing security protocols...*'
+            );
 
-        const ip = fakeIP();
+            await displayProgressBar(
+                sock,
+                m,
+                'Bypassing firewall',
+                5,
+                chatId
+            );
 
-        await m.react('👀');
+            await send(sock, chatId, m,
+                '🔐 *Accessing encrypted database...*'
+            );
 
-        const loading = await m.reply(
-            `🥶 *FREEZER-MD CYBER TERMINAL*\n\n` +
-            `🎯 Target: ${tag}\n` +
-            `🌐 Establishing connection...`
-        );
+            await delay(1500);
 
-        const update = async text => {
-            try {
-                await sock.sendMessage(
-                    m.from,
-                    {
-                        text,
-                        mentions: [target],
-                        edit: loading.key
-                    }
-                );
-            } catch {
-                await sock.sendMessage(
-                    m.from,
-                    {
-                        text,
-                        mentions: [target]
-                    }
-                );
-            }
-        };
+            await send(sock, chatId, m,
+                '🔑 *Cracking encryption keys...*'
+            );
 
-        await sleep(1200);
+            await displayProgressBar(
+                sock,
+                m,
+                'Decrypting',
+                6,
+                chatId
+            );
 
-        await update(
-            `🥶 *FREEZER-MD CYBER TERMINAL*\n\n` +
-            `🎯 Target: ${tag}\n` +
-            `🌐 IP detected: \`${ip}\`\n` +
-            `🔎 Scanning target...\n\n` +
-            `${progress()}`
-        );
+            await send(sock, chatId, m,
+                '📥 *Downloading classified files...*'
+            );
 
-        await sleep(1400);
+            await displayProgressBar(
+                sock,
+                m,
+                'Downloading',
+                5,
+                chatId
+            );
 
-        await update(
-            `🥶 *FREEZER-MD CYBER TERMINAL*\n\n` +
-            `🎯 Target: ${tag}\n` +
-            `🌐 IP: \`${ip}\`\n` +
-            `🔐 Firewall detected\n` +
-            `⚡ Attempting bypass...\n\n` +
-            `${progress()}`
-        );
+            await send(sock, chatId, m,
+                '🔒 *Installing fake backdoor...*'
+            );
 
-        await sleep(1600);
+            await delay(1800);
 
-        await update(
-            `🥶 *FREEZER-MD CYBER TERMINAL*\n\n` +
-            `🎯 Target: ${tag}\n` +
-            `🔓 Firewall bypass: SUCCESS\n` +
-            `💾 Accessing secret files...\n\n` +
-            `${progress()}`
-        );
+            await send(sock, chatId, m,
+                '☠️ *ACCESS GRANTED*\n\n' +
+                `🎯 Target: *${target}*\n` +
+                '🔓 Security: BYPASSED\n' +
+                '💾 Files: DECRYPTED\n' +
+                '📡 Connection: ACTIVE'
+            );
 
-        await sleep(1500);
+            await delay(1500);
 
-        await update(
-            `🥶 *FREEZER-MD CYBER TERMINAL*\n\n` +
-            `🎯 Target: ${tag}\n` +
-            `📂 Files found: 1,284\n` +
-            `🔑 Encryption: AES-999\n` +
-            `🧬 Decrypting...\n\n` +
-            `${progress()}`
-        );
+            await send(sock, chatId, m,
+                '💥 *HACK COMPLETE!* 💥\n\n' +
+                `🎯 *${target}* has been successfully compromised...`
+            );
 
-        await sleep(1800);
+            await delay(1500);
 
-        await update(
-            `☠️ *ACCESS GRANTED*\n\n` +
-            `🎯 Target: ${tag}\n` +
-            `🌐 IP: \`${ip}\`\n` +
-            `🔓 Security: BYPASSED\n` +
-            `💾 Files: DECRYPTED\n` +
-            `📱 Device: COMPROMISED\n\n` +
-            `⚠️ Extracting data...`
-        );
+            await send(sock, chatId, m,
+                '😂😂😂 *GOTCHA!* 😂😂😂\n\n' +
+                '🥶 *YOU JUST GOT PRANKED!*\n\n' +
+                '━━━━━━━━━━━━━━━━━━\n' +
+                '🔐 No device was hacked.\n' +
+                '💾 No files were accessed.\n' +
+                '🕵️ No information was stolen.\n' +
+                '━━━━━━━━━━━━━━━━━━\n\n' +
+                '> 🥶 *FREEZER-MD PRANK ENGINE*'
+            );
 
-        await sleep(1800);
+            await m.react('😂');
 
-        await update(
-            `😂😂 *GOTCHA!*\n\n` +
-            `🎯 ${tag}\n\n` +
-            `━━━━━━━━━━━━━━━━━━\n` +
-            `🥶 YOU JUST GOT PRANKED!\n` +
-            `━━━━━━━━━━━━━━━━━━\n\n` +
-            `☠️ No device was hacked.\n` +
-            `🔐 No data was accessed.\n` +
-            `🤫 It was all fake!\n\n` +
-            `> 🥶 *FREEZER-MD PRANK ENGINE*`
-        );
+        } catch (error) {
+            console.error('Freezer-MD hack prank error:', error);
 
-        await m.react('😂');
+            await sock.sendMessage(
+                chatId,
+                {
+                    text:
+                        '⚠️ *Prank sequence interrupted.*\n\n' +
+                        'Try `.hack` again.'
+                },
+                { quoted: m }
+            ).catch(() => {});
+        }
     }
 };
+
+
+// ─────────────────────────────
+// DELAY
+// ─────────────────────────────
+
+const delay = ms =>
+    new Promise(resolve => setTimeout(resolve, ms));
+
+
+// ─────────────────────────────
+// SEND MESSAGE
+// ─────────────────────────────
+
+async function send(sock, chatId, message, text) {
+    return sock.sendMessage(
+        chatId,
+        { text },
+        { quoted: message }
+    );
+}
+
+
+// ─────────────────────────────
+// PROGRESS BAR
+// ─────────────────────────────
+
+async function displayProgressBar(
+    sock,
+    message,
+    taskName,
+    steps,
+    chatId
+) {
+    const length = 20;
+
+    for (let i = 1; i <= steps; i++) {
+
+        const progress = Math.round(
+            (i / steps) * length
+        );
+
+        const bar =
+            '█'.repeat(progress) +
+            '░'.repeat(length - progress);
+
+        await sock.sendMessage(
+            chatId,
+            {
+                text:
+                    `🥶 *FREEZER-MD TERMINAL*\n\n` +
+                    `⚙️ *${taskName}*\n` +
+                    `[${bar}] ${Math.round((i / steps) * 100)}%`
+            },
+            { quoted: message }
+        );
+
+        await delay(700);
+    }
+}
