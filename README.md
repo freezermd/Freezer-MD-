@@ -1,240 +1,276 @@
+<!--
+███████╗██████╗ ███████╗███████╗███████╗███████╗██████╗
+██╔════╝██╔══██╗██╔════╝╚══███╔╝██╔════╝██╔════╝██╔══██╗
+█████╗  ██████╔╝█████╗    ███╔╝ █████╗  █████╗  ██████╔╝
+██╔══╝  ██╔══██╗██╔══╝   ███╔╝  ██╔══╝  ██╔══╝  ██╔══██╗
+██║     ██║  ██║███████╗███████╗███████╗███████╗██║  ██║
+╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
+-->
 
-# 🧊 Freezer-MD
+<div align="center">
 
-<p align="center">
-  <b>A powerful, modular WhatsApp Multi-Device bot built with Node.js.</b>
-</p>
+# 🧊 FREEZER-MD
 
-<p align="center">
-  <a href="https://github.com/freezermd/Freezer-MD-">
-    <img src="https://img.shields.io/badge/GitHub-Freezer--MD-black?style=for-the-badge&logo=github" alt="GitHub">
-  </a>
-  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge" alt="Version">
-  <img src="https://img.shields.io/badge/Node.js-Required-green?style=for-the-badge&logo=node.js" alt="Node.js">
-  <img src="https://img.shields.io/badge/WhatsApp-MD-green?style=for-the-badge&logo=whatsapp" alt="WhatsApp">
-</p>
+### `The next generation WhatsApp Multi-Device automation framework.`
+
+**Fast • Modular • Extensible • Developer Friendly**
+
+<br>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=180&section=header&text=FREEZER-MD&fontSize=65&fontAlignY=35&animation=twinkling&fontColor=ffffff" width="100%"/>
+
+<br>
+
+[![GitHub](https://img.shields.io/badge/GitHub-Freezer--MD-181717?style=for-the-badge\&logo=github)](https://github.com/freezermd/Freezer-MD-)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge\&logo=node.js\&logoColor=white)](https://nodejs.org/)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-MD-25D366?style=for-the-badge\&logo=whatsapp\&logoColor=white)](https://www.whatsapp.com/)
+[![License](https://img.shields.io/badge/License-Open%20Source-blue?style=for-the-badge)](#-license)
+
+<br>
+
+![Visitors](https://komarev.com/ghpvc/?username=freezermd\&repo=Freezer-MD-\&style=for-the-badge\&color=blueviolet)
+![Stars](https://img.shields.io/github/stars/freezermd/Freezer-MD-?style=for-the-badge)
+![Forks](https://img.shields.io/github/forks/freezermd/Freezer-MD-?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/freezermd/Freezer-MD-?style=for-the-badge)
+
+<br><br>
+
+> 🧊 **Freeze the limits. Build beyond.**
+
+</div>
 
 ---
 
-## ⚡ About
+## 🧊 What is Freezer-MD?
 
-**Freezer-MD** is a modular WhatsApp Multi-Device bot designed to provide useful automation, group-management tools, entertainment commands, utilities, and an extensible plugin system.
+**Freezer-MD** is a modular WhatsApp Multi-Device bot built with **Node.js**, designed for developers who want a clean, extensible and customizable automation platform.
 
-The project is built with a focus on:
+Instead of putting every command inside one massive file, Freezer-MD uses a **plugin-driven architecture** that makes it easier to add, remove, maintain and scale bot functionality.
 
-* 🚀 Performance
-* 🧩 Modular plugins
-* 🛠️ Easy customization
-* 🔐 Reliable session handling
-* 📱 Mobile-friendly deployment
-* 👨‍💻 Developer-friendly architecture
+### Why Freezer-MD?
 
-Freezer-MD is actively developed and will continue to receive new features and improvements.
+```text
+┌─────────────────────────────────────────────────────────┐
+│                    FREEZER-MD CORE                      │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   ⚡ Fast              🧩 Modular                       │
+│   🔐 Session          🛠️ Customizable                  │
+│   📦 Plugins          📱 Termux Friendly               │
+│   🚀 Expandable       👨‍💻 Developer Focused            │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## ✨ Features
+# ✨ Core Features
 
-### 🤖 Bot System
+<table>
+<tr>
+<td width="50%">
 
-* Modular command handler
-* Prefix-based commands
-* Dynamic plugin loading
-* Command aliases
-* Owner/admin permissions
-* Custom bot configuration
+### ⚡ Performance
+
+* Lightweight command system
+* Modular execution
+* Efficient message handling
+* Designed for long-running sessions
+
+</td>
+<td width="50%">
+
+### 🧩 Plugin Architecture
+
+* Independent command files
+* Easy command registration
+* Aliases
+* Categories
+* Permission handling
+
+</td>
+</tr>
+
+<tr>
+<td>
 
 ### 👥 Group Management
 
-* Admin tools
+* Admin utilities
 * Member management
-* Group utilities
-* Moderation commands
+* Group commands
+* Moderation tools
 * Tagging utilities
 
-### 🛠️ Utilities
+</td>
+<td>
+
+### 🎨 Media & Utilities
 
 * Sticker tools
 * Media utilities
-* Information commands
-* Bot status commands
 * Message utilities
+* Information commands
+* Custom tools
 
-### 🎮 Fun & Entertainment
+</td>
+</tr>
 
-* Interactive commands
-* Games
-* Random utilities
-* Fun responses
+<tr>
+<td>
 
-### ⚙️ Developer Features
+### 🔐 Session System
 
-* Plugin-based architecture
-* Centralized configuration
-* Session persistence
-* Easy command creation
-* Expandable command system
+* WhatsApp MD authentication
+* Persistent sessions
+* Reconnection support
+* Session-based startup
+
+</td>
+<td>
+
+### 📱 Mobile Ready
+
+* Termux compatible
+* Android deployment
+* Git-based installation
+* No laptop required for basic deployment
+
+</td>
+</tr>
+</table>
 
 ---
 
-## 📁 Project Structure
+# 🧠 Architecture
+
+Freezer-MD separates the bot engine from its commands.
+
+```text
+                         ┌──────────────────┐
+                         │    WhatsApp      │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │     index.js     │
+                         │   Bot Startup    │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │    handler.js    │
+                         │ Message Handler  │
+                         └────────┬─────────┘
+                                  │
+                    ┌─────────────┴─────────────┐
+                    ▼                           ▼
+             ┌──────────────┐           ┌──────────────┐
+             │   Plugins    │           │     Lib      │
+             │   Commands   │           │    Core      │
+             └──────┬───────┘           └──────────────┘
+                    │
+          ┌─────────┼─────────┐
+          ▼         ▼         ▼
+       General    Admin     Media
+```
+
+---
+
+# 📁 Project Structure
 
 ```text
 Freezer-MD/
-├── lib/
-│   └── Core bot libraries
 │
-├── plugins/
-│   └── Bot commands
+├── 📂 lib/
+│   └── Core libraries and bot utilities
 │
-├── session/
+├── 📂 plugins/
+│   └── Modular bot commands
+│
+├── 📂 session/
 │   └── WhatsApp authentication data
 │
-├── config.js
-│   └── Bot configuration
+├── 📄 config.js
+│   └── Global bot configuration
 │
-├── handler.js
-│   └── Message and command handler
+├── 📄 handler.js
+│   └── Message and command processing
 │
-├── index.js
-│   └── Bot entry point
+├── 📄 index.js
+│   └── Main application entry point
 │
-├── app.json
+├── 📄 app.json
 │   └── Deployment configuration
 │
-├── package.json
+├── 📄 package.json
 │   └── Dependencies and scripts
 │
-└── README.md
-    └── Documentation
+└── 📄 README.md
+    └── Project documentation
 ```
 
 ---
 
-## 📋 Requirements
+# 🎮 Command Showcase
 
-Before installing Freezer-MD, make sure you have:
+Freezer-MD is designed around a simple prefix-based command system.
 
-* **Node.js**
-* **npm**
-* A WhatsApp account
-* Internet connection
-
-For Android users, Freezer-MD can also be deployed through **Termux**.
-
----
-
-## 🚀 Installation
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/freezermd/Freezer-MD-.git
-```
-
-### 2. Enter the directory
-
-```bash
-cd Freezer-MD-
-```
-
-### 3. Install dependencies
-
-```bash
-npm install
-```
-
-### 4. Start the bot
-
-```bash
-npm start
-```
-
-If the project does not define an `npm start` script, start it directly with:
-
-```bash
-node index.js
-```
-
----
-
-## 📱 Termux Installation
-
-Freezer-MD can be run directly from an Android phone using Termux.
-
-### Update Termux
-
-```bash
-pkg update && pkg upgrade
-```
-
-### Install Node.js and Git
-
-```bash
-pkg install nodejs git
-```
-
-### Clone Freezer-MD
-
-```bash
-git clone https://github.com/freezermd/Freezer-MD-.git
-cd Freezer-MD-
-```
-
-### Install dependencies
-
-```bash
-npm install
-```
-
-### Start
-
-```bash
-node index.js
-```
-
----
-
-## ⚙️ Configuration
-
-The main configuration file is:
+### 🟢 General
 
 ```text
-config.js
+.ping
+.menu
+.about
+.owner
+.help
 ```
 
-You can customize settings such as:
+### 🛡️ Group Management
 
-* Bot name
-* Owner information
-* Command prefix
-* Menu settings
-* Automatic features
-* Bot behavior
-* Other project-specific options
+```text
+.tagall
+.hidetag
+.kick
+.add
+.promote
+.demote
+.mute
+.unmute
+```
 
-**Never upload private credentials, authentication files, API keys, or personal session data to GitHub.**
+### ⚠️ Moderation
+
+```text
+.warn
+.warnings
+.resetwarn
+.antidelete
+```
+
+### 🛠️ Media / Tools
+
+```text
+.sticker
+.toimg
+.tomp3
+.tovn
+.togif
+.crop
+.resize
+```
+
+> **Note:** Available commands depend on the current plugin collection. New commands can be added without rebuilding the core bot architecture.
 
 ---
 
-## 🧩 Plugins
+# 🧩 Creating a Plugin
 
-Freezer-MD uses a modular plugin architecture.
-
-Commands can be added inside:
+Create a JavaScript file inside:
 
 ```text
 plugins/
 ```
-
-A plugin can define:
-
-* Command name
-* Aliases
-* Category
-* Description
-* Permissions
-* Command execution logic
 
 Example:
 
@@ -246,171 +282,367 @@ module.exports = {
     description: 'Check bot response time',
 
     async execute(sock, m) {
+        const start = Date.now();
+
         await sock.sendMessage(
             m.chat,
-            { text: '🏓 Pong!' },
-            { quoted: m }
+            {
+                text: `🏓 Pong!\n⚡ ${Date.now() - start}ms`
+            },
+            {
+                quoted: m
+            }
         );
     }
 };
 ```
 
-This architecture makes it possible to expand Freezer-MD without modifying the main bot engine.
+Save it as:
+
+```text
+plugins/ping.js
+```
+
+Restart Freezer-MD and the command becomes part of the bot.
 
 ---
 
-## 📚 Command Categories
+# 🚀 Quick Start
 
-Freezer-MD is designed to support multiple command categories, including:
+## 1️⃣ Clone
 
-| Category   | Purpose              |
-| ---------- | -------------------- |
-| 👑 Owner   | Bot owner controls   |
-| 🛡️ Admin  | Group administration |
-| 👥 Group   | Group utilities      |
-| 🛠️ Tools  | Utility commands     |
-| 🎨 Media   | Media processing     |
-| 🎮 Fun     | Entertainment        |
-| ℹ️ Info    | Information commands |
-| 🤖 General | General bot commands |
+```bash
+git clone https://github.com/freezermd/Freezer-MD-.git
+cd Freezer-MD-
+```
 
-Commands may change as the project develops.
+## 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+## 3️⃣ Configure
+
+Edit:
+
+```text
+config.js
+```
+
+## 4️⃣ Start
+
+```bash
+node index.js
+```
+
+Or, if your `package.json` contains the appropriate start script:
+
+```bash
+npm start
+```
 
 ---
 
-## 🔐 Security
+# 📱 Termux Deployment
 
-Please protect your WhatsApp authentication session.
+Freezer-MD is designed to be friendly to Android developers.
 
-Never commit:
+### Install requirements
+
+```bash
+pkg update -y
+pkg upgrade -y
+pkg install git nodejs -y
+```
+
+### Clone the project
+
+```bash
+git clone https://github.com/freezermd/Freezer-MD-.git
+cd Freezer-MD-
+```
+
+### Install packages
+
+```bash
+npm install
+```
+
+### Start
+
+```bash
+node index.js
+```
+
+### 🔄 Update
+
+```bash
+git pull
+npm install
+node index.js
+```
+
+---
+
+# ☁️ Deployment
+
+<div align="center">
+
+### 🚀 Deploy Freezer-MD
+
+| Platform           | Status     | Method                 |
+| ------------------ | ---------- | ---------------------- |
+| 📱 Termux          | 🟢 Ready   | Git + Node.js          |
+| 💻 Local PC        | 🟢 Ready   | Node.js                |
+| ☁️ VPS             | 🟢 Ready   | Node.js                |
+| 🐳 Docker          | 🟡 Planned | Coming                 |
+| ☁️ Cloud Platforms | 🟡 Depends | Platform configuration |
+
+</div>
+
+> **Important:** Only add one-click deployment buttons here after configuring a deployment service specifically for Freezer-MD.
+
+---
+
+# 🖼️ Screenshots
+
+<div align="center">
+
+### 🤖 Bot Interface
+
+<!-- Replace these placeholders with actual screenshots -->
+
+<img src="screenshots/menu.jpg" width="45%" alt="Freezer-MD Menu">
+<img src="screenshots/ping.jpg" width="45%" alt="Freezer-MD Ping">
+
+### 👥 Group Management
+
+<img src="screenshots/group.jpg" width="45%" alt="Freezer-MD Group Commands">
+<img src="screenshots/admin.jpg" width="45%" alt="Freezer-MD Admin Commands">
+
+</div>
+
+> 📌 Create a `screenshots/` directory in the repository and upload your actual bot screenshots using the filenames above.
+
+---
+
+# 🎨 Freezer-MD Showcase
+
+```text
+╔══════════════════════════════════════════════════════════╗
+║                                                          ║
+║                    🧊 FREEZER-MD                         ║
+║                                                          ║
+║             WhatsApp Multi-Device Bot                   ║
+║                                                          ║
+║       ⚡ Fast  •  🧩 Modular  •  🔐 Secure              ║
+║                                                          ║
+║                  > .menu                                ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
+```
+
+---
+
+# 🔧 Configuration
+
+Freezer-MD centralizes configurable settings inside:
+
+```text
+config.js
+```
+
+Typical configuration areas include:
+
+```text
+BOT PREFIX
+BOT NAME
+OWNER
+MENU SETTINGS
+AUTOMATION
+STATUS SETTINGS
+GROUP SETTINGS
+```
+
+Keep private credentials and authentication data outside the public repository.
+
+---
+
+# 🔐 Security
+
+### Never commit sensitive data.
+
+Do **not** publicly upload:
 
 ```text
 session/
+.env
+API KEYS
+PASSWORDS
+TOKENS
+PRIVATE CREDENTIALS
 ```
 
-or other private credentials to a public repository.
-
-If you accidentally expose authentication credentials, immediately remove them and regenerate the affected credentials/session.
+If authentication credentials are accidentally exposed, invalidate/regenerate them immediately.
 
 ---
 
-## 🛠️ Development
+# 🛣️ Roadmap
 
-Want to develop your own plugin?
+## `v1.x`
 
-1. Fork the repository.
-2. Clone your fork.
-3. Create a new plugin.
-4. Test it locally.
-5. Commit your changes.
-6. Submit a pull request.
-
-Example:
-
-```bash
-git checkout -b feature/my-command
-```
-
-After making your changes:
-
-```bash
-git add .
-git commit -m "Add new command"
-git push origin feature/my-command
-```
-
----
-
-## 🗺️ Roadmap
-
-### Version 1.x
-
-* [x] Core bot system
-* [x] Plugin architecture
-* [x] WhatsApp MD connection
+* [x] Core WhatsApp connection
+* [x] Plugin system
+* [x] Command handler
 * [x] Configuration system
-* [ ] More group commands
-* [ ] More utility commands
-* [ ] More entertainment commands
+* [x] Session support
+* [x] Group utilities
+* [x] Utility commands
+* [ ] Expanded moderation system
+* [ ] More media tools
 * [ ] Improved error handling
 * [ ] Performance improvements
 
-### Version 2.x
+## `v2.x`
 
-Future development may include:
-
-* 🌐 API-powered features
-* 🤖 Advanced automation
-* 📊 Improved bot statistics
-* 🎨 Enhanced menus
-* ⚡ Performance optimizations
-* 🔌 More integrations
-* 🧠 Advanced intelligent features
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome.
-
-If you have an improvement, bug fix, new plugin, or feature idea:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Make your changes.
-4. Test your changes.
-5. Open a pull request.
-
-Please keep contributions clean, documented, and compatible with the existing architecture.
+```text
+🧠 Advanced automation
+🌐 API integrations
+📊 Bot analytics
+🎨 Advanced UI/menu system
+⚡ Performance engine
+🔌 External integrations
+🛡️ Advanced moderation
+🤖 Intelligent features
+```
 
 ---
 
-## ⚠️ Disclaimer
+# 🤝 Contributing
 
-Freezer-MD is an independent open-source project.
+Freezer-MD is built to grow through the community.
 
-This project is not affiliated with, endorsed by, or officially connected to WhatsApp or Meta.
+### Contribution workflow
 
-Users are responsible for how they deploy and use the software.
+```bash
+# Fork the repository
 
-Do not use the bot for spam, abuse, harassment, or activities that violate WhatsApp's terms or applicable laws.
+# Clone your fork
+git clone YOUR_FORK_URL
 
----
+# Create a feature branch
+git checkout -b feature/my-command
 
-## 📄 License
+# Make your changes
 
-This project is intended to be distributed under its repository license.
+# Commit
+git add .
+git commit -m "Add my command"
 
-See the repository for the current licensing terms.
+# Push
+git push origin feature/my-command
+```
 
----
+Then open a Pull Request.
 
-## 👨‍💻 Developer
+### Good contributions include:
 
-### 🧊 Freezer-MD
-
-Built with passion for automation, development, and the WhatsApp bot community.
-
-**GitHub:**
-https://github.com/freezermd
-
-**Repository:**
-https://github.com/freezermd/Freezer-MD-
-
----
-
-## ⭐ Support the Project
-
-If Freezer-MD is useful to you:
-
-⭐ Star the repository
-🍴 Fork the project
-🐛 Report bugs
-💡 Suggest features
-🤝 Contribute improvements
+* 🐛 Bug fixes
+* ⚡ Performance improvements
+* 🧩 New plugins
+* 🛡️ Security improvements
+* 📚 Documentation
+* 🎨 UI/menu improvements
+* 💡 Feature proposals
 
 ---
 
-<p align="center">
-  <b>🧊 FREEZER-MD — Freeze the limits. Build beyond. 👻</b>
-</p>
+# 🐛 Bug Reports
+
+Found a problem?
+
+Please include:
+
+```text
+Freezer-MD version:
+Node.js version:
+Operating system:
+Command causing the issue:
+Expected behavior:
+Actual behavior:
+Error/log:
+```
+
+Do **not** include authentication credentials or private session information.
+
+---
+
+# 📜 License
+
+Freezer-MD is an open-source project.
+
+See the repository license file for the applicable licensing terms.
+
+---
+
+# ⚠️ Disclaimer
+
+Freezer-MD is an independent project and is **not affiliated with, endorsed by, or officially associated with WhatsApp or Meta Platforms, Inc.**
+
+Users are responsible for complying with:
+
+* WhatsApp's applicable terms
+* Local laws
+* Platform policies
+* Responsible automation practices
+
+The developers are not responsible for misuse of the software.
+
+---
+
+# 👨‍💻 Developer
+
+<div align="center">
+
+## 🧊 Freezer-MD
+
+**Built by FreezerMD**
+
+[![GitHub](https://img.shields.io/badge/GitHub-FreezerMD-181717?style=for-the-badge\&logo=github)](https://github.com/freezermd)
+
+</div>
+
+---
+
+# ⭐ Support Freezer-MD
+
+If you like the project:
+
+<div align="center">
+
+### ⭐ Star the repository
+
+### 🍴 Fork it
+
+### 🐛 Report bugs
+
+### 💡 Suggest features
+
+### 🤝 Contribute
+
+</div>
+
+---
+
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=120&section=footer&animation=twinkling"/>
+
+### 🧊 FREEZER-MD
+
+**Freeze the limits. Build beyond.**
+
+`Made with Node.js • Built for WhatsApp • Powered by the community`
+
+</div>
