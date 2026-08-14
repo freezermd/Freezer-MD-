@@ -1,0 +1,1 @@
+module.exports={name:'badwords',category:'Admin',aliases:['badwordlist'],description:'Show bad words',async execute(sock,m){if(!m.isGroup)return m.reply('❌ Group only.');if(!m.isAdmin&&!m.isOwner)return m.reply('❌ Admin permission required.');const a=global.badWords?.[m.from]||[];return m.reply('🤬 BAD WORDS\n\n'+(a.length?a.join('\n'):'No bad words configured.'));}};
