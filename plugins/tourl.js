@@ -1,128 +1,293 @@
 const axios = require('axios');
+const FormData = require('form-data');
+
+const TIMEOUT = 120000;
+
+async function uploadCatbox(buffer, filename, mime) {
+    const form = new FormData();
+
+    form.append('reqtype', 'fileupload');
+    form.append('fileToUpload', buffer, {
+        filename,
+        contentType: mime
+    });
+
+    const res = await axios.post(
+        'https://catbox.moe/user/api.php',
+        form,
+        {
+            headers: form.getHeaders(),
+            timeout: TIMEOUT,
+            maxContentLength: Infinity,
+            maxBodyLength: Infinity
+        }
+    );
+
+    const url = String(res.data || '').trim();
+
+    if (!url.startsWith('http')) {
+        throw new Error(`Catbox returned: ${url}`);
+    }
+
+    return url;
+}
+
+async function uploadUguu(buffer, filename, mime) {
+    const form = new FormData();
+
+    form.append('files[]', buffer, {
+        filename,
+        contentType: mime
+    });
+
+    const res = await axios.post(
+        'https://uguu.se/upload',
+        form,
+        {
+            headers: form.getHeaders(),
+            timeout: TIMEOUT,
+            maxContentLength: Infinity,
+            maxBodyLength: Infinity
+        }
+    );
+
+    const data = res.data;
+
+    const url =
+        data?.files?.[0]?.url ||
+        data?.url ||
+        (Array.isArray(data) ? data[0]?.url : null);
+
+    if (!url || !String(url).startsWith('http')) {
+        throw new Error(`Uguu returned invalid response`);
+    }
+
+    return url;
+}
+
+async function upload0x0(buffer, filename, mime) {
+    const form = new FormData();
+
+    form.append('file', buffer, {
+        filename,
+        contentType: mime
+    });
+
+    const res = await axios.post(
+        'https://0x0.st',
+        form,
+        {
+            headers: form.getHeaders(),
+            timeout: TIMEOUT,
+            maxContentLength: Infinity,
+            maxBodyLength: Infinity
+        }
+    );
+
+    const url = String(res.data || '').trim();
+
+    if (!url.startsWith('http')) {
+        throw new Error(`0x0 returned: ${url}`);
+    }
+
+    return url;
+}
 
 module.exports = {
     name: 'tourl',
     category: 'Tools',
     aliases: ['url', 'upload'],
-    description: 'Upload replied media and get a public URL',
+    description: 'Upload media and automatically find a working public URL',
 
     async execute(sock, m, args) {
         try {
-            const quoted = m.quoted;
-
-            if (!quoted) {
+            if (!m.quoted) {
                 return m.reply(
                     `❌ *Reply to an image, video, audio, or document.*\n\n` +
                     `Example:\n` +
-                    `1. Send/reply to media\n` +
+                    `1. Reply to media\n` +
                     `2. Type *.tourl*`
                 );
             }
 
-            const type = quoted.mtype || quoted.type || '';
-
-            const allowed = [
-                'imageMessage',
-                'videoMessage',
-                'audioMessage',
-                'documentMessage',
-                'image',
-                'video',
-                'audio',
-                'document'
-            ];
-
-            if (!allowed.includes(type)) {
-                return m.reply('❌ Unsupported media type.');
-            }
-
-            await m.react('⏳');
-            const loading = await m.reply('📤 *Uploading media...*');
-
-            // Download quoted media
-            const buffer = await quoted.download();
-
-            if (!buffer || !buffer.length) {
-                await m.react('❌');
-                return m.reply('❌ Failed to download the media.');
-            }
-
-            // Detect filename
-            const originalName =
-                quoted.fileName ||
-                quoted.msg?.fileName ||
-                `freezer-${Date.now()}`;
+            const quoted = m.quoted;
 
             const mime =
                 quoted.mimetype ||
                 quoted.msg?.mimetype ||
-                'application/octet-stream';
+                '';
 
-            // Catbox upload
-            const form = new FormData();
+            if (!mime) {
+                return m.reply('❌ Could not detect the media type.');
+            }
 
-            form.append(
-                'reqtype',
-                'fileupload'
+            const supported =
+                mime.startsWith('image/') ||
+                mime.startsWith('video/') ||
+                mime.startsWith('audio/') ||
+                mime.startsWith('application/');
+
+            if (!supported) {
+                return m.reply('❌ Unsupported media type.');
+            }
+
+            await m.react('⏳');
+
+            const loading = await m.reply(
+                '📤 *Preparing media...*'
             );
 
-            form.append(
-                'fileToUpload',
-                new Blob([buffer], { type: mime }),
-                originalName
-            );
+            let buffer;
 
-            const response = await axios.post(
-                'https://catbox.moe/user/api.php',
-                form,
-                {
-                    headers: {
-                        ...Object.fromEntries(form.entries())
-                    },
-                    maxContentLength: Infinity,
-                    maxBodyLength: Infinity,
-                    timeout: 60000
-                }
-            );
-
-            const url = String(response.data || '').trim();
-
-            if (!url.startsWith('http')) {
-                console.error('Freezer-MD TOURL response:', response.data);
+            try {
+                buffer = await quoted.download();
+            } catch (err) {
+                console.error('TOURL download error:', err);
                 await m.react('❌');
-                return m.reply('❌ Upload failed. The hosting service returned an invalid URL.');
+                return m.reply('❌ Failed to download the media.');
+            }
+
+            if (!buffer || !Buffer.isBuffer(buffer) || !buffer.length) {
+                await m.react('❌');
+                return m.reply('❌ Media buffer is empty.');
+            }
+
+            const filename =
+                quoted.fileName ||
+                quoted.msg?.fileName ||
+                `freezer-${Date.now()}`;
+
+            const sizeMB = (
+                buffer.length / 1024 / 1024
+            ).toFixed(2);
+
+            const uploaders = [
+                {
+                    name: 'Catbox',
+                    upload: () =>
+                        uploadCatbox(buffer, filename, mime)
+                },
+                {
+                    name: 'Uguu',
+                    upload: () =>
+                        uploadUguu(buffer, filename, mime)
+                },
+                {
+                    name: '0x0.st',
+                    upload: () =>
+                        upload0x0(buffer, filename, mime)
+                }
+            ];
+
+            let finalUrl = null;
+            let usedHost = null;
+            const failures = [];
+
+            for (const uploader of uploaders) {
+                try {
+                    await editMessage(
+                        sock,
+                        m,
+                        loading,
+                        `📤 *Uploading media...*\n\n` +
+                        `🌐 Trying: *${uploader.name}*`
+                    );
+
+                    console.log(
+                        `[TOURL] Trying ${uploader.name}...`
+                    );
+
+                    const url = await uploader.upload();
+
+                    if (url) {
+                        finalUrl = url;
+                        usedHost = uploader.name;
+                        break;
+                    }
+
+                } catch (error) {
+                    const reason =
+                        error.response?.data ||
+                        error.message ||
+                        'Unknown error';
+
+                    console.error(
+                        `[TOURL] ${uploader.name} failed:`,
+                        reason
+                    );
+
+                    failures.push(
+                        `${uploader.name}: ${String(reason).slice(0, 100)}`
+                    );
+                }
+            }
+
+            if (!finalUrl) {
+                await m.react('❌');
+
+                return editMessage(
+                    sock,
+                    m,
+                    loading,
+                    `❌ *All upload services failed.*\n\n` +
+                    `Tried:\n` +
+                    `• Catbox ❌\n` +
+                    `• Uguu ❌\n` +
+                    `• 0x0.st ❌\n\n` +
+                    `Please try again later.`
+                );
             }
 
             await m.react('✅');
 
-            return m.reply(
+            const result =
                 `╭━━〔 🥶 FREEZER-MD 〕━━╮\n` +
                 `┃ 📤 *MEDIA UPLOADED*\n` +
                 `┃\n` +
-                `┃ 📁 File: ${originalName}\n` +
+                `┃ 🌐 Host: ${usedHost}\n` +
+                `┃ 📁 File: ${filename}\n` +
                 `┃ 📦 Type: ${mime}\n` +
+                `┃ 📏 Size: ${sizeMB} MB\n` +
                 `┃\n` +
-                `┃ 🔗 *URL:*\n` +
-                `┃ ${url}\n` +
-                `╰━━━━━━━━━━━━━━━━╯`
+                `┃ 🔗 *PUBLIC URL:*\n` +
+                `┃ ${finalUrl}\n` +
+                `╰━━━━━━━━━━━━━━━━╯`;
+
+            return editMessage(
+                sock,
+                m,
+                loading,
+                result
             );
 
         } catch (error) {
             console.error(
-                'Freezer-MD TOURL Error:',
-                error.response?.data || error.message
+                'Freezer-MD TOURL fatal error:',
+                error
             );
 
             await m.react('❌');
 
             return m.reply(
-                `❌ *Upload failed.*\n\n` +
-                `Possible reasons:\n` +
-                `• Media is too large\n` +
-                `• Upload service unavailable\n` +
-                `• Network timeout\n\n` +
-                `Please try again.`
+                '❌ Unexpected error while processing the upload.'
             );
         }
     }
 };
+
+async function editMessage(sock, m, message, text) {
+    try {
+        return await sock.sendMessage(
+            m.from,
+            {
+                text,
+                edit: message.key
+            }
+        );
+    } catch (error) {
+        return await sock.sendMessage(
+            m.from,
+            { text }
+        );
+    }
+}
