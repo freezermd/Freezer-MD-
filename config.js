@@ -11,7 +11,7 @@ global.dev = [
     '254785188927@s.whatsapp.net'
 ];
 
-global.menuImage = 'https://n.uguu.se/ldjaObwF.jpg';
+global.menuImage = '';
 
 global.ownerName = '🥶 Freezer 🥶';
 
