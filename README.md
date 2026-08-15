@@ -1,7 +1,7 @@
 # 🥶 Freezer-MD
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/freezermd/Freezer-MD-/main/assets/freezer.jpg" width="500"/>
+  <img src="[https://raw.githubusercontent.com/freezermd/Freezer-MD-/main/assets/freezer.jpg](https://i.ibb.co/fY77xvV1/IMG-20260814-WA0000-1.jpg)" width="500"/>
 </p>
 
 <p align="center">
